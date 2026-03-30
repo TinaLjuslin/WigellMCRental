@@ -1,19 +1,22 @@
 package com.ljuslin.wigellMCRental.service;
 
+import com.ljuslin.wigellMCRental.dto.BikeCreateDto;
+import com.ljuslin.wigellMCRental.dto.BikeResponseDto;
 import com.ljuslin.wigellMCRental.entity.Bike;
-import com.ljuslin.wigellMCRental.repository.BikeRepository;
-import org.springframework.stereotype.Service;
+import com.ljuslin.wigellMCRental.mapper.BikeMapper;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@Service
-public class BikeService {
-    private final BikeRepository bikeRepository;
+public interface BikeService {
 
-    public BikeService(BikeRepository bikeRepository) {
-        this.bikeRepository = bikeRepository;
-    }
-    public List<Bike> getAllBikes() {
-        return bikeRepository.findAll();
-    }
+    List<BikeResponseDto> getAllBikes();
+
+    BikeResponseDto createBike(BikeCreateDto dto);
+
+    List<BikeResponseDto> getAvailableBikes(LocalDate from, LocalDate to);
+
+    void delete(Long id);
+
+    BikeResponseDto getBike(Long id);
 }

@@ -47,3 +47,13 @@ management:
   info:
     env:
       enabled: true
+
+keycloak:
+  auth-server-url: http://localhost:8090 # Samma bas som din issuer-uri
+  realm: wigell-realm
+  client-id: wigell-superadmin
+  client-secret: IqRhvH4lzWdLHhrnA5xiwnUGIY5Gl4N6
+
+services:
+  currency-converter:
+    url: http://localhost:8586/api/v1/currency/convert

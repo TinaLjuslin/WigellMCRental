@@ -1,0 +1,146 @@
+2026-03-26 19:40:03 [main] INFO  c.l.w.WigellMcRentalApplication - Starting WigellMcRentalApplication using Java 25.0.2 with PID 3808 (C:\Users\Administratör\IdeaProjects\backend\grupparbete\WigellMCRental\WigellMCRental\target\classes started by Administratör in C:\Users\Administratör\IdeaProjects\backend\grupparbete\WigellMCRental)
+2026-03-26 19:40:03 [main] DEBUG c.l.w.WigellMcRentalApplication - Running with Spring Boot v3.5.12, Spring v6.2.17
+2026-03-26 19:40:03 [main] INFO  c.l.w.WigellMcRentalApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-26 19:40:05 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-26 19:40:05 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 63 ms. Found 1 JPA repository interface.
+2026-03-26 19:40:06 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8585 (http)
+2026-03-26 19:40:06 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-26 19:40:06 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-26 19:40:06 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-26 19:40:06 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3283 ms
+2026-03-26 19:40:07 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-26 19:40:07 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.44.Final
+2026-03-26 19:40:07 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-26 19:40:07 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-26 19:40:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-26 19:40:08 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7294a684
+2026-03-26 19:40:08 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-26 19:40:08 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-26 19:40:08 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.44
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-26 19:40:09 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-26 19:40:09 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-26 19:40:10 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-26 19:40:11 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoints beneath base path '/actuator'
+2026-03-26 19:40:12 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8585 (http) with context path '/'
+2026-03-26 19:40:12 [main] INFO  c.l.w.WigellMcRentalApplication - Started WigellMcRentalApplication in 9.758 seconds (process running for 11.458)
+2026-03-26 19:40:12 [registrationTask1] WARN  d.c.b.a.c.r.ApplicationRegistrator - Failed to register application as Application(name=bike-service, managementUrl=http://localhost:8585/actuator, healthUrl=http://localhost:8585/actuator/health, serviceUrl=http://192.168.50.144:8585/) at spring-boot-admin ([http://localhost:9090/instances]): I/O error on POST request for "http://localhost:9090/instances": null. Further attempts are logged on DEBUG level
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:9090/instances": null
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.createResourceAccessException(DefaultRestClient.java:704)
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.exchangeInternal(DefaultRestClient.java:589)
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.exchange(DefaultRestClient.java:540)
+	at org.springframework.web.client.RestClient$RequestHeadersSpec.exchange(RestClient.java:677)
+	at org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.executeAndExtract(DefaultRestClient.java:821)
+	at org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.body(DefaultRestClient.java:765)
+	at de.codecentric.boot.admin.client.registration.RestClientRegistrationClient.register(RestClientRegistrationClient.java:45)
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationRegistrator.register(DefaultApplicationRegistrator.java:80)
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationRegistrator.register(DefaultApplicationRegistrator.java:61)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+Caused by: java.net.ConnectException
+	at java.net.http/jdk.internal.net.http.common.Utils.toConnectException(Utils.java:1070)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:223)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(PlainHttpConnection.java:277)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$0(PlainHttpConnection.java:235)
+	at java.base/java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:955)
+	at java.base/java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:932)
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:531)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1794)
+	... 3 common frames omitted
+Caused by: java.nio.channels.ClosedChannelException
+	at java.base/sun.nio.ch.SocketChannelImpl.ensureOpen(SocketChannelImpl.java:204)
+	at java.base/sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:942)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:211)
+	... 9 common frames omitted
+2026-03-26 19:40:23 [http-nio-8585-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-26 19:40:23 [http-nio-8585-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-26 19:40:23 [http-nio-8585-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-03-26 19:40:59 [http-nio-8585-exec-3] INFO  c.l.w.controller.BikeController - Admin requested all bikes from the database
+2026-03-26 19:40:59 [http-nio-8585-exec-3] DEBUG c.l.w.controller.BikeController - Successfully retrieved 0 bikes
+2026-03-26 19:48:32 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-26 19:48:32 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-03-26 19:48:32 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-26 19:48:32 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-03-26 19:48:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-26 19:48:39 [main] INFO  c.l.w.WigellMcRentalApplication - Starting WigellMcRentalApplication using Java 25.0.2 with PID 12896 (C:\Users\Administratör\IdeaProjects\backend\grupparbete\WigellMCRental\WigellMCRental\target\classes started by Administratör in C:\Users\Administratör\IdeaProjects\backend\grupparbete\WigellMCRental)
+2026-03-26 19:48:39 [main] INFO  c.l.w.WigellMcRentalApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-26 19:48:41 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-26 19:48:41 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 60 ms. Found 1 JPA repository interface.
+2026-03-26 19:48:42 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8585 (http)
+2026-03-26 19:48:42 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8585"]
+2026-03-26 19:48:42 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-26 19:48:42 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.52]
+2026-03-26 19:48:42 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-03-26 19:48:42 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2738 ms
+2026-03-26 19:48:42 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-26 19:48:42 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.44.Final
+2026-03-26 19:48:42 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-03-26 19:48:43 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-26 19:48:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-26 19:48:43 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2a21cbe7
+2026-03-26 19:48:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-26 19:48:43 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-26 19:48:43 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.44
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-26 19:48:45 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-26 19:48:45 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-26 19:48:45 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-26 19:48:46 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 2 endpoints beneath base path '/actuator'
+2026-03-26 19:48:47 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8585"]
+2026-03-26 19:48:47 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8585 (http) with context path '/'
+2026-03-26 19:48:47 [main] INFO  c.l.w.WigellMcRentalApplication - Started WigellMcRentalApplication in 9.3 seconds (process running for 11.136)
+2026-03-26 19:48:47 [registrationTask1] WARN  d.c.b.a.c.r.ApplicationRegistrator - Failed to register application as Application(name=bike-service, managementUrl=http://localhost:8585/actuator, healthUrl=http://localhost:8585/actuator/health, serviceUrl=http://192.168.50.144:8585/) at spring-boot-admin ([http://localhost:9090/instances]): I/O error on POST request for "http://localhost:9090/instances": null. Further attempts are logged on DEBUG level
+org.springframework.web.client.ResourceAccessException: I/O error on POST request for "http://localhost:9090/instances": null
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.createResourceAccessException(DefaultRestClient.java:704)
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.exchangeInternal(DefaultRestClient.java:589)
+	at org.springframework.web.client.DefaultRestClient$DefaultRequestBodyUriSpec.exchange(DefaultRestClient.java:540)
+	at org.springframework.web.client.RestClient$RequestHeadersSpec.exchange(RestClient.java:677)
+	at org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.executeAndExtract(DefaultRestClient.java:821)
+	at org.springframework.web.client.DefaultRestClient$DefaultResponseSpec.body(DefaultRestClient.java:765)
+	at de.codecentric.boot.admin.client.registration.RestClientRegistrationClient.register(RestClientRegistrationClient.java:45)
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationRegistrator.register(DefaultApplicationRegistrator.java:80)
+	at de.codecentric.boot.admin.client.registration.DefaultApplicationRegistrator.register(DefaultApplicationRegistrator.java:61)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+Caused by: java.net.ConnectException
+	at java.net.http/jdk.internal.net.http.common.Utils.toConnectException(Utils.java:1070)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:223)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.checkRetryConnect(PlainHttpConnection.java:277)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.lambda$connectAsync$0(PlainHttpConnection.java:235)
+	at java.base/java.util.concurrent.CompletableFuture.uniHandle(CompletableFuture.java:955)
+	at java.base/java.util.concurrent.CompletableFuture$UniHandle.tryFire(CompletableFuture.java:932)
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:531)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1794)
+	... 3 common frames omitted
+Caused by: java.nio.channels.ClosedChannelException
+	at java.base/sun.nio.ch.SocketChannelImpl.ensureOpen(SocketChannelImpl.java:204)
+	at java.base/sun.nio.ch.SocketChannelImpl.connect(SocketChannelImpl.java:942)
+	at java.net.http/jdk.internal.net.http.PlainHttpConnection.connectAsync(PlainHttpConnection.java:211)
+	... 9 common frames omitted
+2026-03-26 19:48:58 [http-nio-8585-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-26 19:48:58 [http-nio-8585-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-26 19:48:58 [http-nio-8585-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-03-26 19:49:35 [http-nio-8585-exec-3] INFO  c.l.w.controller.BikeController - Admin requested all bikes from the database
+2026-03-26 22:57:44 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h30s108ms931µs).
