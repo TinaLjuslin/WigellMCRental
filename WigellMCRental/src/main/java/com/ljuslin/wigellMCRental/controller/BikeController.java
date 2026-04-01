@@ -2,6 +2,7 @@ package com.ljuslin.wigellMCRental.controller;
 
 import com.ljuslin.wigellMCRental.dto.BikeResponseDto;
 import com.ljuslin.wigellMCRental.dto.BikeCreateDto;
+import com.ljuslin.wigellMCRental.dto.BikeUpdateDto;
 import com.ljuslin.wigellMCRental.service.BikeServiceImpl;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -29,67 +30,60 @@ public class BikeController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<BikeResponseDto>> getAllBikes() {
-        logger.info("Admin requested all bikes from the database");
+        logger.debug("Admin requested all bikes from the database");
 
-        try {
-            List<BikeResponseDto> bikes = bikeService.getAllBikes();
-            logger.debug("Successfully retrieved {} bikes", bikes.size());
-            return ResponseEntity.ok(bikes);
-        } catch (Exception e) {
-            logger.error("Failed to retrieve bikes: {}", e.getMessage());
-            throw e;
-        }
+        List<BikeResponseDto> bikes = bikeService.getAllBikes();
+        return ResponseEntity.ok(bikes);
+
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<BikeResponseDto> createBike(@RequestBody @Valid BikeCreateDto dto) {
-        logger.info("Admin saving new bike: {} {}", dto.brand(), dto.model());
-        try {
-            BikeResponseDto bikeResponseDto = bikeService.createBike(dto);
-            logger.debug("Successfully created bike");
-            URI location = ServletUriComponentsBuilder
-                    .fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(bikeResponseDto.id())
-                    .toUri();
+        logger.debug("Admin saving new bike: {} {}", dto.brand(), dto.model());
+        BikeResponseDto bikeResponseDto = bikeService.createBike(dto);
+        logger.debug("Successfully created bike");
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(bikeResponseDto.id())
+                .toUri();
 
-            return ResponseEntity.created(location).body(bikeResponseDto);
-        } catch (Exception e) {
-            logger.error("Failed to create bike", e.getMessage());
-            throw e;
-        }
+        return ResponseEntity.created(location).body(bikeResponseDto);
     }
+
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/availability")
     public ResponseEntity<List<BikeResponseDto>> getAvailableBikes(
             @RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
 
-        logger.info("Requesting available bikes from {} to {}", from, to);
+        logger.debug("Requesting available bikes from {} to {}", from, to);
         List<BikeResponseDto> bikes = bikeService.getAvailableBikes(from, to);
         return ResponseEntity.ok(bikes);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-public ResponseEntity<Void> deleteBike(@PathVariable long id) {
-        logger.info("Trying to delete bike with id {}", id);
+    public ResponseEntity<Void> deleteBike(@PathVariable long id) {
+        logger.debug("Trying to delete bike with id {}", id);
         bikeService.delete(id);
         return ResponseEntity.noContent().build();
-
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<BikeResponseDto> getBike(@PathVariable long id) {
-        try {
-            BikeResponseDto bike = bikeService.getBike(id);
-            logger.debug("Successfully retrieved bike with id ", id);
-            return ResponseEntity.ok(bike);
-        } catch (Exception e) {
-            logger.error("Failed to retrieve bike ", e.getMessage());
-            throw e;
-        }
+        BikeResponseDto bikeDto = bikeService.getBike(id);
+        logger.debug("Successfully retrieved bike with id ", id);
+        return ResponseEntity.ok(bikeDto);
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<BikeResponseDto> updateBike(@PathVariable long id,
+                                                      @RequestBody @Valid BikeUpdateDto dto) {
+        logger.debug("Admin trying to update bike with id {}", id);
+        return ResponseEntity.ok(bikeService.updateBike(id, dto));
+    }
 }

@@ -5,58 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a81fa021-53d0-4c32-b761-b4c3bb1ab0ed" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/config/Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/config/DataInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/BookingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/CustomerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/AddressCreateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/AddressResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BikeCreateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BikeResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BikeUpdateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BookingCreateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BookingResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/ConversionResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/CustomerCreateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/CustomerResponseDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/CustomerUpdateDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/ExchangeRateResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/MoneyDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/Address.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/BikeStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/exception/ApiExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/exception/DataConflictException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/exception/IllegalActionException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/exception/IllegalDataException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/exception/ItemNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/mapper/AddressMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/mapper/BikeMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/mapper/BookingMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/mapper/CustomerMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/AddressRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/BookingRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/CustomerRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/AddressService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/AddressServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BikeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BookingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BookingServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/CustomerServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/KeycloakService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/archived/mcrental-2026-03-26.0.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/logs/mcrental.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BookingPatchAdminDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BookingPatchUserDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BookingUpdateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/BookingStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WigellMCRental/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/config/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/config/DataInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/AddressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/AddressController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/BikeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/BikeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/Bike.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/Bike.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/BookingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/AddressCreateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/AddressCreateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BikeCreateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BikeCreateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BikeUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/BikeUpdateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/CustomerCreateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/CustomerCreateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/CustomerUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/dto/CustomerUpdateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/BikeStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/BikeStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/entity/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/exception/ApiExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/exception/ApiExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/BikeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/BikeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/BookingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/BookingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/repository/CustomerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/AddressServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BikeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BikeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BikeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BikeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BookingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BookingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/BookingServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/KeycloakService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/service/KeycloakService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/mcrental.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/mcrental.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +48,7 @@
         <option value="Interface" />
         <option value="Class" />
         <option value="Record" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -123,6 +103,7 @@
       <recent name="C:\Users\Administratör\IdeaProjects\backend\grupparbete\WigellMCRental\WigellMCRental\src\main\java\com\ljuslin\wigellMCRental" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.ljuslin.wigellMCRental.dto" />
       <recent name="com.ljuslin.wigellMCRental.config" />
     </key>
   </component>
@@ -151,7 +132,7 @@
       <option name="presentableId" value="Default" />
       <updated>1774519254958</updated>
       <workItem from="1774519254961" duration="27448000" />
-      <workItem from="1774863724339" duration="23544000" />
+      <workItem from="1774863724339" duration="61658000" />
     </task>
     <servers />
   </component>
@@ -163,8 +144,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/BikeController.java</url>
-          <line>54</line>
+          <line>49</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/WigellMCRental/src/main/java/com/ljuslin/wigellMCRental/controller/BookingController.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

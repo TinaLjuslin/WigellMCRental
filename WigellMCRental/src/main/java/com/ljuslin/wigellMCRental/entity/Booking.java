@@ -11,25 +11,36 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
     @ManyToOne
     @JoinColumn(name = "bike_id", nullable = false)
     private Bike bike;
+
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
+
     @Column(name = "end_date", nullable = true)
     private LocalDate endDate;
+
     @Column(name = "booking_date", nullable = false)
     private LocalDate bookingDate;
+
     @Column(name = "total_price_sek", precision = 10, scale = 2)
     private BigDecimal totalPriceSek;
+
     @Column(name = "total_price_gbp", precision = 10, scale = 2)
     private BigDecimal totalPriceGbp;
 
     @Column(nullable = false)
     private boolean paid = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private BookingStatus status = BookingStatus.BOOKED;
 
     protected Booking() {
     }
@@ -124,5 +135,13 @@ public class Booking {
 
     public void setPaid(boolean paid) {
         this.paid = paid;
+    }
+
+    public BookingStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BookingStatus status) {
+        this.status = status;
     }
 }

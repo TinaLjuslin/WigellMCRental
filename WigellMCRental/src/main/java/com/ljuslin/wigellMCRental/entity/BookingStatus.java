@@ -1,14 +1,13 @@
 package com.ljuslin.wigellMCRental.entity;
 
-public enum BikeStatus {
-    AVAILABLE("Tillgänglig"),
-    IN_SERVICE("På service"),
-    RETIRED("Tagits ur bruk"),
-    DELETED("Borta ur systemet");
+public enum BookingStatus {
+    BOOKED("bokad"),
+    RETURNED("returnerad"),
+    CANCELLED("avbokad");
 
     private final String swedishName;
 
-    BikeStatus(String swedishName) {
+    BookingStatus(String swedishName) {
         this.swedishName = swedishName;
     }
 

@@ -3,7 +3,6 @@ package com.ljuslin.wigellMCRental.service;
 import com.ljuslin.wigellMCRental.dto.CustomerCreateDto;
 import com.ljuslin.wigellMCRental.dto.CustomerResponseDto;
 import com.ljuslin.wigellMCRental.dto.CustomerUpdateDto;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -16,5 +15,6 @@ public interface CustomerService {
     List<CustomerResponseDto> getAllCustomers();
 
     CustomerResponseDto getCustomerById(Long id);
+
     CustomerResponseDto updateCustomer(Long id, @Valid CustomerUpdateDto dto);
 }

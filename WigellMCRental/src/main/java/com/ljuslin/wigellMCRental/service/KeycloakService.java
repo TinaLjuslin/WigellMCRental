@@ -12,6 +12,8 @@ import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ import java.util.List;
 
 @Service
 public class KeycloakService {
+    private static final Logger logger = LoggerFactory.getLogger(KeycloakService.class);
     @Value("${keycloak.auth-server-url}")
     private String serverUrl;
     @Value("${keycloak.realm}")
@@ -29,7 +32,7 @@ public class KeycloakService {
     private String clientSecret;
 
     public String createKeycloakUser(CustomerCreateDto dto) {
-        // Här bygger vi anropet till Keycloak
+        logger.info("createKeycloakUser/start");
         Keycloak keycloak = KeycloakBuilder.builder()
                 .serverUrl(serverUrl)
                 .realm(realm)
@@ -46,7 +49,6 @@ public class KeycloakService {
         user.setEnabled(true);
         user.setRealmRoles(List.of("USER"));
 
-        // Sätt lösenordet
         CredentialRepresentation cred = new CredentialRepresentation();
         cred.setTemporary(false);
         cred.setType(CredentialRepresentation.PASSWORD);
@@ -62,6 +64,7 @@ public class KeycloakService {
         if (response.getStatus() != 201) {
             throw new RuntimeException("Kunde inte skapa användare: " + response.getStatusInfo());
         }
+        logger.info("Successfully created Keycloak user");
 
         return CreatedResponseUtil.getCreatedId(response);
     }
@@ -69,7 +72,8 @@ public class KeycloakService {
 
     public void deleteKeycloakUser(String keycloakId) {
         try {
-            // Vi bygger anropet på samma sätt som vid create
+            logger.info("deleteKeycloakUser/start");
+
             Keycloak keycloak = KeycloakBuilder.builder()
                     .serverUrl(serverUrl)
                     .realm(realm) // Din wigell-realm
@@ -79,7 +83,7 @@ public class KeycloakService {
                     .build();
 
             keycloak.realm(realm).users().get(keycloakId).remove();
-
+            logger.info("Successfully deleted Keycloak user with ID: {}", keycloakId);
         } catch (Exception e) {
             throw new RuntimeException("Kunde inte radera användare i Keycloak: " + e.getMessage());
         }

@@ -1,5 +1,6 @@
 package com.ljuslin.wigellMCRental.service;
 
+import com.ljuslin.wigellMCRental.controller.BookingController;
 import com.ljuslin.wigellMCRental.dto.AddressCreateDto;
 import com.ljuslin.wigellMCRental.dto.AddressResponseDto;
 import com.ljuslin.wigellMCRental.entity.Address;
@@ -9,10 +10,13 @@ import com.ljuslin.wigellMCRental.exception.ItemNotFoundException;
 import com.ljuslin.wigellMCRental.mapper.AddressMapper;
 import com.ljuslin.wigellMCRental.repository.AddressRepository;
 import com.ljuslin.wigellMCRental.repository.CustomerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AddressServiceImpl implements AddressService {
+    private static final Logger logger = LoggerFactory.getLogger(AddressServiceImpl.class);
     private final AddressRepository addressRepository;
     private final CustomerRepository customerRepository;
 
@@ -33,19 +37,23 @@ public class AddressServiceImpl implements AddressService {
             throw new DataConflictException("This address is already registered for this customer");
         }
         Address address = new Address(null, dto.street(), dto.zipCode(), dto.city(), customer);
-
-        return AddressMapper.toDto(addressRepository.save(address));
+        address = addressRepository.save(address);
+        logger.info("New address has been saved successfully with id {}", address.getId());
+        return AddressMapper.toDto(address);
     }
     public void removeAddress(Long customerId, Long addressId) {
         Address address = addressRepository.findById(addressId)
-                .orElseThrow(() -> new ItemNotFoundException("Address not found with id: " + addressId));
+                .orElseThrow(() -> new ItemNotFoundException("Adress med id : " + addressId +
+                        " hittades inte."));
 
         if (!address.getCustomer().getId().equals(customerId)) {
-            throw new DataConflictException("Address with id " + addressId + " does not belong to customer " + customerId);
+            throw new DataConflictException("Adress med id " + addressId + " tillhör inte " +
+                    "kund med id " + customerId);
         }
 
         address.getCustomer().getAddresses().remove(address);
 
         addressRepository.delete(address);
+        logger.info("Address with id {} has been removed.", address.getId());
     }
 }

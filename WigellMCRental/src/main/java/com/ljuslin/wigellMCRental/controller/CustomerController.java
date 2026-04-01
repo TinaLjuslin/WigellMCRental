@@ -3,29 +3,17 @@ package com.ljuslin.wigellMCRental.controller;
 import com.ljuslin.wigellMCRental.dto.CustomerCreateDto;
 import com.ljuslin.wigellMCRental.dto.CustomerResponseDto;
 import com.ljuslin.wigellMCRental.dto.CustomerUpdateDto;
-import com.ljuslin.wigellMCRental.entity.Customer;
 import com.ljuslin.wigellMCRental.service.CustomerService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
-/* ADMIN:
-X Lista kunder GET /api/v1/customers
-X Hämta kund GET /api/v1/customers/{customerId}
-X Lägga till kund POST /api/v1/customers
-X Ta bort kund DELETE /api/v1/customers/{customerId}
-• Uppdatera kund PUT /api/v1/customers/{customerId}
-Lägga till adress POST /api/v1/customers/{customerId}/addresses
-• Ta bort adress DELETE /api/v1/customers/{customerId}/addresses/{addressId
-USER:
-
-*/
-
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -41,16 +29,10 @@ public class CustomerController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<CustomerResponseDto>> getAllCustomers() {
-        logger.info("Admin retrieveing all customers");
+        logger.debug("Admin retrieving all customers");
 
-        try {
             List<CustomerResponseDto> customers = customerService.getAllCustomers();
-            logger.debug("Successfully retrieved {} customers", customers.size());
             return ResponseEntity.ok(customers);
-        } catch (Exception e) {
-            logger.error("Failed to retrieve customers: {}", e.getMessage());
-            throw e;
-        }
 
 
     }
@@ -58,28 +40,30 @@ public class CustomerController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CustomerResponseDto> createCustomer(@Valid @RequestBody CustomerCreateDto dto) {
-        logger.info("Admin creating customer");
-        return new ResponseEntity<>(customerService.createCustomer(dto), HttpStatus.CREATED);
+        logger.debug("Admin creating customer");
+        CustomerResponseDto customerDto = customerService.createCustomer(dto);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(customerDto.id())
+                .toUri();
+
+        return ResponseEntity.created(location).body(customerDto);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<CustomerResponseDto> getCustomer(@PathVariable long id) {
-        try {
-            CustomerResponseDto customer = customerService.getCustomerById(id);
-            logger.debug("Successfully retrieved customer with id ", id);
-            return ResponseEntity.ok(customer);
-        } catch (Exception e) {
-            logger.error("Failed to retrieve customer ", e.getMessage());
-            throw e;
-        }
+        logger.debug("Admin retrieving customer with id {} ", id);
+        CustomerResponseDto customer = customerService.getCustomerById(id);
+        return ResponseEntity.ok(customer);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+        logger.debug("Admin deleting customer with id {}", id);
         customerService.deleteCustomer(id);
-        logger.info("Admin deleted customer with id {}", id);
         return ResponseEntity.noContent().build();
     }
 
@@ -87,6 +71,7 @@ public class CustomerController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable Long id,
                                                               @RequestBody @Valid CustomerUpdateDto dto) {
+    logger.debug("Admin updating customer with id: {}", id);
         return ResponseEntity.ok(customerService.updateCustomer(id, dto));
     }
 }

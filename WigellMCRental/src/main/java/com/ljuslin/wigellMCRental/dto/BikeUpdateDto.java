@@ -8,10 +8,12 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public record BikeUpdateDto(
-        @NotBlank String brand,
-        @NotBlank String model,
-        @NotBlank String engineSize,
-        @Min(1900) int year,
-        @NotNull BigDecimal pricePerDay,
-        @NotNull BikeStatus status
-) {}
+        @NotBlank(message = "Märke krävs") String brand,
+        @NotBlank(message = "Motorkapacitet krävs") String engineSize,
+        @NotBlank(message = "Modell krävs") String model,
+        @Min(value = 1900, message = "Årsmodell måste vara minst 1900") int year,
+        @NotNull(message = "Pris per dag krävs")@Min(value = 0, message = "Priset kan inte vara negativt")
+        BigDecimal pricePerDay,
+        @NotNull(message = "Status krävs") BikeStatus status
+) {
+}

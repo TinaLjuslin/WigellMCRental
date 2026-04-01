@@ -7,10 +7,11 @@ import com.ljuslin.wigellMCRental.dto.CustomerUpdateDto;
 import com.ljuslin.wigellMCRental.entity.Address;
 import com.ljuslin.wigellMCRental.entity.Customer;
 import com.ljuslin.wigellMCRental.exception.DataConflictException;
+import com.ljuslin.wigellMCRental.exception.IllegalActionException;
 import com.ljuslin.wigellMCRental.exception.ItemNotFoundException;
-import com.ljuslin.wigellMCRental.mapper.BikeMapper;
 import com.ljuslin.wigellMCRental.mapper.CustomerMapper;
 import com.ljuslin.wigellMCRental.repository.AddressRepository;
+import com.ljuslin.wigellMCRental.repository.BookingRepository;
 import com.ljuslin.wigellMCRental.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,12 +29,16 @@ public class CustomerServiceImpl implements CustomerService {
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
     private final AddressRepository addressRepository;
     private final CustomerRepository customerRepository;
+    private final BookingRepository bookingRepository;
     private final KeycloakService keycloakService;
 
     public CustomerServiceImpl(AddressRepository addressRepository,
-                               CustomerRepository customerRepository, KeycloakService keycloakService) {
+                               CustomerRepository customerRepository,
+                              BookingRepository bookingRepository,
+                               KeycloakService keycloakService) {
         this.addressRepository = addressRepository;
         this.customerRepository = customerRepository;
+        this.bookingRepository = bookingRepository;
         this.keycloakService = keycloakService;
     }
 
@@ -66,25 +72,41 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteCustomer(Long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Customer not found with id: " + id));
+//ska man kolla om customer har några pågående bokninger
+        boolean hasFutureBookings = bookingRepository.customerHasActiveFutureBookings(customer,
+                LocalDate.now());
+
+        if (hasFutureBookings) {
+            throw new IllegalActionException("Kan inte radera kund med id " + id + " då den har " +
+                    "framtida bokningar. Ta bort dessa bokningar först.");
+    }
 
         keycloakService.deleteKeycloakUser(customer.getKeycloakId());
-
-        customerRepository.delete(customer);
+        customer.setFirstName("deleted");
+        customer.setLastName("deleted");
+        customer.setEmail("deleted_" + customer.getId() + "@mcrental.se");
+        customer.getAddresses().clear();
+        customer.setUsername("deleted");
+        customer.setKeycloakId("deleted_" + id);
+        //customerRepository.delete(customer);
+        customerRepository.save(customer);
+        logger.info("Customer with id {} is now soft deleted", id);
     }
 
     public List<CustomerResponseDto> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
-
+        logger.info("{} customers retrieved", customers.size());
         return customers.stream()
                 .map(CustomerMapper::toDto)
                 .toList();
-
     }
 
     public CustomerResponseDto getCustomerById(Long id) {
-        return CustomerMapper.toDto(customerRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFoundException("Customer med id " + id + " finns " +
-                        "inte")));
+        Customer customer = customerRepository.findById(id).orElseThrow(() ->
+                new ItemNotFoundException("Customer med id " + id + " hittades inte"));
+        logger.info("Customer with id {} retrieved", id);
+        return CustomerMapper.toDto(customer);
+
 
     }
 
