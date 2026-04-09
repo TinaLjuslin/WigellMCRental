@@ -30,7 +30,7 @@ public class BikeServiceImpl implements BikeService {
 
     public List<BikeResponseDto> getAllBikes() {
         List<Bike> bikes = bikeRepository.findAll();
-        logger.info("{} bikes retrieved", bikes.size());
+        logger.debug("{} bikes retrieved", bikes.size());
         return bikes.stream()
                 .map(BikeMapper::toDto)
                 .toList();
@@ -38,14 +38,14 @@ public class BikeServiceImpl implements BikeService {
 
     public BikeResponseDto createBike(BikeCreateDto dto) {
         Bike bike = bikeRepository.save(BikeMapper.toEntityCreate(dto));
-        logger.info("New bike created: {} {}, with id {}", bike.getBrand(), bike.getModel()
+        logger.debug("New bike created: {} {}, with id {}", bike.getBrand(), bike.getModel()
                 , bike.getId());
         return BikeMapper.toDto(bike);
     }
 
     public List<BikeResponseDto> getAvailableBikes(LocalDate from, LocalDate to) {
         List<Bike> bikes = bikeRepository.findAvailableBikes(from, to);
-        logger.info("{} available bikes retrieved", bikes.size());
+        logger.debug("Found {} available bikes for period {} to {}", bikes.size(), from, to);
         return bikes.stream()
                 .map(BikeMapper::toDto)
                 .toList();
@@ -65,7 +65,7 @@ public class BikeServiceImpl implements BikeService {
         }
         bike.setStatus(BikeStatus.DELETED);
         bikeRepository.save(bike);
-        logger.info("Bike with id {} is set to status deleted", id);
+        logger.debug("Bike with id {} is set to status deleted", id);
     }
 
     public BikeResponseDto updateBike(Long id, BikeUpdateDto dto) {
@@ -81,7 +81,7 @@ public class BikeServiceImpl implements BikeService {
 
         Bike updatedBike = bikeRepository.save(bike);
 
-        logger.info("Updated bike ID {}: brand={}, model={}, status={}",
+        logger.debug("Updated bike ID {}: brand={}, model={}, status={}",
                 id, dto.brand(), dto.model(), dto.status());
 
         return BikeMapper.toDto(updatedBike);
@@ -91,7 +91,7 @@ public class BikeServiceImpl implements BikeService {
         Bike bike = bikeRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Motorcykel med id " + id +
                         " hittades inte"));
-        logger.info("Bike with id {} retrieved");
+        logger.debug("Bike with id {} retrieved", id);
         return BikeMapper.toDto(bike);
     }
 }

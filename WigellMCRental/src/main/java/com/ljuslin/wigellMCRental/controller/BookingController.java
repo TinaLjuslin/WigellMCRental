@@ -5,14 +5,12 @@ import com.ljuslin.wigellMCRental.service.BookingServiceImpl;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -28,7 +26,7 @@ public class BookingController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<BookingResponseDto> createBooking(@RequestBody @Valid BookingCreateDto dto) {
-        logger.debug("User saving new booking");
+        logger.info("User saving new booking");
         BookingResponseDto bookingResponseDto = bookingService.createBooking(dto);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -44,8 +42,7 @@ public class BookingController {
     @GetMapping
     public ResponseEntity<List<BookingResponseDto>> getBookings(
             @RequestParam(value = "customerId", required = false) Long customerId) {
-            logger.debug("Admin listning all bookings");
-            //List<BookingResponseDto> bookings = bookingService.getBookings();
+        logger.info("Request to list bookings (customerId filter: {})", customerId);
         List<BookingResponseDto> bookings = bookingService.getAllOrFiltered(customerId);
         return ResponseEntity.ok(bookings);
         }
@@ -54,7 +51,7 @@ public class BookingController {
         @PatchMapping("{id}")
         public ResponseEntity<BookingResponseDto> userPatchBooking (@PathVariable Long id,
                 @RequestBody @Valid BookingPatchUserDto dto){
-            logger.debug("User trying to patch booking with id: {}", id);
+            logger.info("User trying to patch booking with id: {}", id);
             return ResponseEntity.ok(bookingService.userPatchBooking(id, dto));
         }
 
@@ -62,14 +59,14 @@ public class BookingController {
         @PatchMapping("{id}/status")
         public ResponseEntity<BookingResponseDto> adminPatchBooking (@PathVariable Long id,
                 @RequestBody @Valid BookingPatchAdminDto dto){
-            logger.debug("Admin trying to patch booking with id: {}", id);
+            logger.info("Admin trying to patch booking with id: {}", id);
             return ResponseEntity.ok(bookingService.adminPatchBooking(id, dto));
         }
 
         @PreAuthorize("hasRole('ADMIN')")
         @GetMapping("{id}")
         public ResponseEntity<BookingResponseDto> getBooking (@PathVariable Long id){
-            logger.debug("Admin trying to get booking with id: {}", id);
+            logger.info("Admin trying to get booking with id: {}", id);
             BookingResponseDto dto = bookingService.getBooking(id);
             return ResponseEntity.ok(dto);
         }
@@ -78,24 +75,15 @@ public class BookingController {
         @PutMapping("{id}")
         public ResponseEntity<BookingResponseDto> updateBooking (@PathVariable Long id,
                 @RequestBody @Valid BookingUpdateDto dto){
-            logger.debug("Admin trying to update booking with id {}", id);
+            logger.info("Admin trying to update booking with id {}", id);
             return ResponseEntity.ok(bookingService.updateBooking(id, dto));
         }
 
         @PreAuthorize("hasRole('ADMIN')")
         @DeleteMapping("{id}")
         public ResponseEntity<Void> deleteBooking (@PathVariable Long id){
-            logger.debug("Trying to delete booking with id {}", id);
+            logger.info("Trying to delete booking with id {}", id);
             bookingService.deleteBooking(id);
             return ResponseEntity.noContent().build();
         }
-/*
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping
-    public ResponseEntity<List<BookingResponseDto>> getBookingsForUser(@RequestParam("customerId")
-            Long id) {
-        logger.debug("User listing their bookings");
-        List<BookingResponseDto> bookings = bookingService.getBookingsForUser(id);
-        return ResponseEntity.ok(bookings);
-    }*/
     }

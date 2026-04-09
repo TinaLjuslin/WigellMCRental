@@ -38,7 +38,7 @@ public class AddressServiceImpl implements AddressService {
         }
         Address address = new Address(null, dto.street(), dto.zipCode(), dto.city(), customer);
         address = addressRepository.save(address);
-        logger.info("New address has been saved successfully with id {}", address.getId());
+        logger.debug("New address has been saved successfully with id {}", address.getId());
         return AddressMapper.toDto(address);
     }
     public void removeAddress(Long customerId, Long addressId) {
@@ -54,6 +54,6 @@ public class AddressServiceImpl implements AddressService {
         address.getCustomer().getAddresses().remove(address);
 
         addressRepository.delete(address);
-        logger.info("Address with id {} has been removed.", address.getId());
+        logger.debug("Address with id {} has been removed.", address.getId());
     }
 }

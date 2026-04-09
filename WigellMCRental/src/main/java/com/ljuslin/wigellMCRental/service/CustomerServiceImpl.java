@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer saved = customerRepository.save(customer);
 
-        logger.info("admin created customer {}", saved.getId());
+        logger.debug("admin created customer {}", saved.getId());
 
         return CustomerMapper.toDto(saved);
     }
@@ -90,12 +90,12 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setKeycloakId("deleted_" + id);
         //customerRepository.delete(customer);
         customerRepository.save(customer);
-        logger.info("Customer with id {} is now soft deleted", id);
+        logger.debug("Customer with id {} is now soft deleted", id);
     }
 
     public List<CustomerResponseDto> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
-        logger.info("{} customers retrieved", customers.size());
+        logger.debug("{} customers retrieved", customers.size());
         return customers.stream()
                 .map(CustomerMapper::toDto)
                 .toList();
@@ -104,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerResponseDto getCustomerById(Long id) {
         Customer customer = customerRepository.findById(id).orElseThrow(() ->
                 new ItemNotFoundException("Customer med id " + id + " hittades inte"));
-        logger.info("Customer with id {} retrieved", id);
+        logger.debug("Customer with id {} retrieved", id);
         return CustomerMapper.toDto(customer);
 
 
@@ -122,6 +122,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setLastName(dto.lastName());
         customer.setEmail(dto.email());
         customerRepository.save(customer);
+        logger.debug("Customer with id {} updated.", id);
         return CustomerMapper.toDto(customer);
     }
 }

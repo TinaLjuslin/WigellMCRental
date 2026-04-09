@@ -32,7 +32,7 @@ public class KeycloakService {
     private String clientSecret;
 
     public String createKeycloakUser(CustomerCreateDto dto) {
-        logger.info("createKeycloakUser/start");
+        logger.debug("createKeycloakUser/start");
         Keycloak keycloak = KeycloakBuilder.builder()
                 .serverUrl(serverUrl)
                 .realm(realm)
@@ -64,7 +64,7 @@ public class KeycloakService {
         if (response.getStatus() != 201) {
             throw new RuntimeException("Kunde inte skapa användare: " + response.getStatusInfo());
         }
-        logger.info("Successfully created Keycloak user");
+        logger.debug("Successfully created Keycloak user");
 
         return CreatedResponseUtil.getCreatedId(response);
     }
@@ -72,7 +72,7 @@ public class KeycloakService {
 
     public void deleteKeycloakUser(String keycloakId) {
         try {
-            logger.info("deleteKeycloakUser/start");
+            logger.debug("deleteKeycloakUser/start");
 
             Keycloak keycloak = KeycloakBuilder.builder()
                     .serverUrl(serverUrl)
@@ -83,13 +83,14 @@ public class KeycloakService {
                     .build();
 
             keycloak.realm(realm).users().get(keycloakId).remove();
-            logger.info("Successfully deleted Keycloak user with ID: {}", keycloakId);
+            logger.debug("Successfully deleted Keycloak user with ID: {}", keycloakId);
         } catch (Exception e) {
             throw new RuntimeException("Kunde inte radera användare i Keycloak: " + e.getMessage());
         }
     }
 
     public void updateKeycloakUser(String keycloakId, CustomerUpdateDto dto) {
+        logger.debug("Updating Keycloak user with ID: {}", keycloakId);
         try {
             Keycloak keycloak = KeycloakBuilder.builder()
                     .serverUrl(serverUrl)
@@ -107,6 +108,7 @@ public class KeycloakService {
             user.setEmail(dto.email());
 
             userResource.update(user);
+            logger.debug("Successfully updated Keycloak user");
 
         } catch (WebApplicationException e) {
             if (e.getResponse().getStatus() == 409) {

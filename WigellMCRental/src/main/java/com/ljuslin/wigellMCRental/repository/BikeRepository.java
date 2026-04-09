@@ -1,7 +1,6 @@
 package com.ljuslin.wigellMCRental.repository;
 
 import com.ljuslin.wigellMCRental.entity.Bike;
-import com.ljuslin.wigellMCRental.entity.BikeStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,8 +16,8 @@ public interface BikeRepository extends JpaRepository<Bike,Long> {
         SELECT bo.bike.id FROM Booking bo 
         WHERE bo.status != com.ljuslin.wigellMCRental.entity.BookingStatus.CANCELLED
         AND bo.startDate <= :to 
-        AND bo.endDate >= :from
-    )
-""")List<Bike> findAvailableBikes(@Param("from") LocalDate from, @Param("to") LocalDate to);
+        AND bo.endDate >= :from)
+""")
+    List<Bike> findAvailableBikes(@Param("from") LocalDate from, @Param("to") LocalDate to);
 
 }

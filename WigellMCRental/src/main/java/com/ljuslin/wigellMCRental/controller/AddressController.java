@@ -28,7 +28,7 @@ public class AddressController {
     public ResponseEntity<AddressResponseDto> addAddress(
             @PathVariable Long customerId,
             @Valid @RequestBody AddressCreateDto dto) {
-        logger.debug("Adding new address to customer with id: {}", customerId);
+        logger.info("Adding new address to customer with id: {}", customerId);
         AddressResponseDto responseDto = addressService.addAddress(customerId, dto);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -42,7 +42,7 @@ public class AddressController {
     @DeleteMapping("/{addressId}")
     public ResponseEntity<Void> deleteAddress(@PathVariable Long customerId,
                                            @PathVariable Long addressId) {
-        logger.debug("Admin is deleting address {} for customer {}", addressId, customerId);
+        logger.info("Admin is deleting address {} for customer {}", addressId, customerId);
         addressService.removeAddress(customerId, addressId);
         return ResponseEntity.noContent().build();
     }

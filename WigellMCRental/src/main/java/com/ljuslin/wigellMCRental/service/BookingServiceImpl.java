@@ -20,12 +20,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-
 @Service
 public class BookingServiceImpl implements BookingService {
     private static final Logger logger = LoggerFactory.getLogger(BookingServiceImpl.class);
@@ -52,6 +52,9 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new ItemNotFoundException("Kund med id " + dto.customerId() +
                         " hittades inte."));
 
+        if (!isSameAsLoggedIn(customer)) throw new IllegalActionException("Du " +
+                "kan endast skapa dina egna bokningar");
+
         Bike bike = bikeRepository.findById(dto.bikeId())
                 .orElseThrow(() -> new ItemNotFoundException("Mc med id " + dto.bikeId() +
                         "hittades inte."));
@@ -67,8 +70,7 @@ public class BookingServiceImpl implements BookingService {
 
         Booking booking = BookingMapper.toEntityCreate(dto, customer, bike, totalPriceSek, totalPriceGbp);
         booking = bookingRepository.save(booking);
-        logger.info("Booking with id {} created", booking.getId());
-        return BookingMapper.toDto(booking);
+        logger.debug("Booking created with id {}. Total: {} SEK ({} GBP)", booking.getId(), totalPriceSek, totalPriceGbp);        return BookingMapper.toDto(booking);
     }
 
     @Transactional
@@ -77,17 +79,9 @@ public class BookingServiceImpl implements BookingService {
                 .orElseThrow(() -> new ItemNotFoundException("Bokning med id " + bookingId +
                         "hittades inte."));
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String keycloakId = "";
+        if (!isSameAsLoggedIn(savedBooking.getCustomer())) throw new IllegalActionException("Du " +
+                "kan endast ändra dina egna bokningar");
 
-        if (principal instanceof Jwt jwt) {
-            keycloakId = jwt.getSubject();
-        }
-        var auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (!savedBooking.getCustomer().getKeycloakId().equals(keycloakId)) {
-            throw new IllegalActionException("Du kan endast ändra dina egna bokningar.");
-        }
         if (dto.bikeId() != null) {
             Bike newBike = bikeRepository.findById(dto.bikeId())
                     .orElseThrow(() -> new ItemNotFoundException("Motorcykel med id " + dto.bikeId() + " hittades inte."));
@@ -110,7 +104,7 @@ public class BookingServiceImpl implements BookingService {
         savedBooking.setTotalPriceSek(totalPriceSek);
         savedBooking.setTotalPriceGbp(totalPriceGbp);
         savedBooking = bookingRepository.save(savedBooking);
-        logger.info("Booking with id {} updated bu user", savedBooking.getId());
+        logger.debug("Booking with id {} updated by user", savedBooking.getId());
         return BookingMapper.toDto(savedBooking);
 
     }
@@ -130,13 +124,13 @@ public class BookingServiceImpl implements BookingService {
             }
         }
         savedBooking = bookingRepository.save(savedBooking);
-        logger.info("Booking with id {} updated by admin", savedBooking.getId());
+        logger.debug("Booking with id {} updated by admin", savedBooking.getId());
         return BookingMapper.toDto(savedBooking);
     }
 
     private List<Booking> getBookings() {
         List<Booking> bookings = bookingRepository.findAll();
-        logger.info("{} bookings retrieved", bookings.size());
+        logger.debug("{} bookings retrieved", bookings.size());
         return bookings;
     }
 
@@ -145,7 +139,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Bokning med id " + id + " hittades" +
                         " inte."));
-        logger.info("Booking with id {} retrieved", booking.getId());
+        logger.debug("Booking with id {} retrieved", booking.getId());
         return BookingMapper.toDto(booking);
     }
 
@@ -177,7 +171,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setTotalPriceSek(totalPriceSek);
         booking.setTotalPriceGbp(totalPriceGbp);
         booking = bookingRepository.save(booking);
-        logger.info("Booking with id {} updated", booking.getId());
+        logger.debug("Booking with id {} updated", booking.getId());
         return BookingMapper.toDto(booking);
     }
 
@@ -193,29 +187,21 @@ public class BookingServiceImpl implements BookingService {
         }
         booking.setStatus(BookingStatus.CANCELLED);
         bookingRepository.save(booking);
-        logger.info("Booking with id {} is cancelled", id);
+        logger.debug("Booking with id {} is cancelled", id);
     }
+
     private List<Booking> getBookingsForUser(Long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException("Kund med id " + id +
                         " hittades inte."));
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String keycloakId = "";
-
-        if (principal instanceof Jwt jwt) {
-            keycloakId = jwt.getSubject();
-        }
-        var auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (!customer.getKeycloakId().equals(keycloakId)) {
-            throw new IllegalActionException("Du kan endast ändra dina egna bokningar.");
-        }
-
+        if (!isSameAsLoggedIn(customer)) throw new IllegalActionException("Du kan endast hämta " +
+                "dina egna bokningar");
         List<Booking> bookings = bookingRepository.findBookingsByCustomerId(id);
-        logger.info("{} bookings retrieved for customer {}", bookings.size(), id);
+        logger.debug("{} bookings retrieved for customer {}", bookings.size(), id);
         return bookings;
     }
+
     public List<BookingResponseDto> getAllOrFiltered(Long id) {
         List<Booking> bookings;
         if (id == null) {
@@ -229,6 +215,7 @@ public class BookingServiceImpl implements BookingService {
                 .map(BookingMapper::toDto)
                 .toList();
     }
+
     private void overlappingBooking(Long bikeId, LocalDate startDate, LocalDate endDate) {
         if (bookingRepository.isBikeOccupied(bikeId, startDate, endDate)) {
             throw new DataConflictException("Motorcykeln är tyvärr redan bokad under denna " +
@@ -254,28 +241,46 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private BigDecimal convertSekToGbp(BigDecimal sekAmount) {
-        String url = String.format("%s?amount=%s&from=%s&to=%s",
-                currencyServiceUrl, sekAmount.toPlainString(), "SEK", "GBP");
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(currencyServiceUrl)
+                .queryParam("amount", sekAmount)
+                .queryParam("from", "SEK")
+                .queryParam("to", "GBP");
+
         try {
-            ConversionResponse response = restTemplate.getForObject(url, ConversionResponse.class);
+            ConversionResponse response = restTemplate.getForObject(builder.toUriString(), ConversionResponse.class);
 
             if (response != null && response.to() != null) {
                 return response.to().amount();
             }
         } catch (Exception e) {
-            System.err.println("Kunde inte nå valutatjänsten: " + e.getMessage());
-            throw new RuntimeException("Valutakonvertering misslyckades.");
+            logger.error("Kunde inte nå valutatjänsten via gateway: {}", e.getMessage());
+            throw new IllegalActionException("Valutakonvertering misslyckades just nu, försök igen senare.");
         }
-        throw new RuntimeException("Valutakonvertering misslyckades.");
-
+        throw new IllegalActionException("Kunde inte genomföra valutakonverteringen.");
     }
+
     private boolean isAdmin() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) return false;
 
-        // Vi letar efter ROLE_ADMIN i användarens authorities (roller)
         return auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .anyMatch(role -> role.equals("ROLE_ADMIN"));
+    }
+
+    private boolean isSameAsLoggedIn(Customer customer) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String keycloakId = "";
+
+
+        if (principal instanceof Jwt jwt) {
+            keycloakId = jwt.getSubject();
+        }
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!customer.getKeycloakId().equals(keycloakId)) {
+            return false;
+        }
+        return true;
     }
 }

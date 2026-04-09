@@ -5,6 +5,9 @@ spring:
   application:
     name: bike-service
 
+  config:
+    import: "optional:classpath:secret.properties"
+
   security:
     oauth2:
       resourceserver:
@@ -52,8 +55,8 @@ keycloak:
   auth-server-url: http://localhost:8090 # Samma bas som din issuer-uri
   realm: wigell-realm
   client-id: wigell-superadmin
-  client-secret: IqRhvH4lzWdLHhrnA5xiwnUGIY5Gl4N6
+  client-secret: ${my.secret.value}
 
 services:
   currency-converter:
-    url: http://localhost:8586/api/v1/currency/convert
+    url: http://localhost:8080/currency/api/v1/currency/convert

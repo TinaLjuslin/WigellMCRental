@@ -30,7 +30,7 @@ public class BikeController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<BikeResponseDto>> getAllBikes() {
-        logger.debug("Admin requested all bikes from the database");
+        logger.info("Admin requested all bikes from the database");
 
         List<BikeResponseDto> bikes = bikeService.getAllBikes();
         return ResponseEntity.ok(bikes);
@@ -40,9 +40,9 @@ public class BikeController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<BikeResponseDto> createBike(@RequestBody @Valid BikeCreateDto dto) {
-        logger.debug("Admin saving new bike: {} {}", dto.brand(), dto.model());
+        logger.info("Admin saving new bike: {} {}", dto.brand(), dto.model());
         BikeResponseDto bikeResponseDto = bikeService.createBike(dto);
-        logger.debug("Successfully created bike");
+        logger.info("Successfully created bike");
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -58,7 +58,7 @@ public class BikeController {
             @RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
             @RequestParam("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) {
 
-        logger.debug("Requesting available bikes from {} to {}", from, to);
+        logger.info("Requesting available bikes from {} to {}", from, to);
         List<BikeResponseDto> bikes = bikeService.getAvailableBikes(from, to);
         return ResponseEntity.ok(bikes);
     }
@@ -66,7 +66,7 @@ public class BikeController {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBike(@PathVariable long id) {
-        logger.debug("Trying to delete bike with id {}", id);
+        logger.info("Trying to delete bike with id {}", id);
         bikeService.delete(id);
         return ResponseEntity.noContent().build();
     }
@@ -75,7 +75,7 @@ public class BikeController {
     @GetMapping("/{id}")
     public ResponseEntity<BikeResponseDto> getBike(@PathVariable long id) {
         BikeResponseDto bikeDto = bikeService.getBike(id);
-        logger.debug("Successfully retrieved bike with id ", id);
+        logger.info("Successfully retrieved bike with id {}", id);
         return ResponseEntity.ok(bikeDto);
     }
 
@@ -83,7 +83,7 @@ public class BikeController {
     @PutMapping("/{id}")
     public ResponseEntity<BikeResponseDto> updateBike(@PathVariable long id,
                                                       @RequestBody @Valid BikeUpdateDto dto) {
-        logger.debug("Admin trying to update bike with id {}", id);
+        logger.info("Admin trying to update bike with id {}", id);
         return ResponseEntity.ok(bikeService.updateBike(id, dto));
     }
 }

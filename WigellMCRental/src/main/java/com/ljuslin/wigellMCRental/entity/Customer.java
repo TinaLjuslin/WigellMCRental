@@ -27,6 +27,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
+
     @Column(name = "keycloak_id", unique = true, nullable = false)
     private String keycloakId;
 
